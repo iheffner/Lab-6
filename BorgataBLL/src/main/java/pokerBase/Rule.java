@@ -21,6 +21,10 @@ public class Rule {
 	private ArrayList<CardDomainModel> RuleCards = new ArrayList<CardDomainModel>();
 	private eGame Game;
 
+	public Rule() {
+		
+	}
+	
 	public Rule(eGame gme) {
 		this.Game = gme;
 		switch (gme) {
@@ -234,6 +238,38 @@ public class Rule {
 
 	public void setiCardsToDraw(int[] iCardsToDraw) {
 		this.iCardsToDraw = iCardsToDraw;
+	}
+
+	public int getMaxNumberOfPlayers() {
+		return MaxNumberOfPlayers;
+	}
+
+	public void setMaxNumberOfPlayers(int maxNumberOfPlayers) {
+		MaxNumberOfPlayers = maxNumberOfPlayers;
+	}
+
+	public int getPlayerNumberOfCards() {
+		return PlayerNumberOfCards;
+	}
+
+	public void setPlayerNumberOfCards(int playerNumberOfCards) {
+		PlayerNumberOfCards = playerNumberOfCards;
+	}
+
+	public int getNumberOfJokers() {
+		return NumberOfJokers;
+	}
+
+	public void setNumberOfJokers(int numberOfJokers) {
+		NumberOfJokers = numberOfJokers;
+	}
+
+	public ArrayList<CardDomainModel> getRuleCards() {
+		return RuleCards;
+	}
+
+	public void setRuleCards(ArrayList<CardDomainModel> ruleCards) {
+		RuleCards = ruleCards;
 	}
 	
 }

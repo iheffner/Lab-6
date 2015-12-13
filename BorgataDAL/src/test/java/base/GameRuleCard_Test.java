@@ -18,7 +18,7 @@ import domain.GameRuleCardsDomainModel;
 public class GameRuleCard_Test {
 
 	private static ArrayList<GameRuleCardsDomainModel> grCards;
-	
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -34,14 +34,32 @@ public class GameRuleCard_Test {
 	@After
 	public void tearDown() throws Exception {
 	}
-	
+
 	@Test
 	public void GetRules()
 	{
 		grCards = GameRuleCardsDAL.getCardsRules();
-		
-		assertTrue(grCards.size() > 0);
-		
+
+		//Currently there are 47 entries in the table
+		assertTrue(grCards.size() == 47);
+
+		//Four correspond to RuleID = 1
+		int counter = 0;
+		for (GameRuleCardsDomainModel ggg : grCards) {
+			if (ggg.getRULEID() == 1) {
+				counter++;
+			}
+		}
+		assertTrue(counter == 4);
+
+		//Seven correspond to RuleID = 7
+		counter = 0;
+		for (GameRuleCardsDomainModel ggg : grCards) {
+			if (ggg.getRULEID() == 7) {
+				counter++;
+			}
+		}
+		assertTrue(counter == 7);
 	}
-	
+
 }

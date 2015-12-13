@@ -40,8 +40,13 @@ public class GameRule_Test {
 	{
 		gr = GameRuleDAL.getRules();
 		
-		assertTrue(gr.size() > 0);
+		//With 9 in the table right now:
+		assertTrue(gr.size() == 9);
 		
+		//With sequential IDs:
+		for (int i = 1; i < 10; i++) {
+			assertTrue(gr.get(i - 1).getRULEID() == i);
+		}
 	}
 	
 }

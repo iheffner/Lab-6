@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -41,8 +42,12 @@ public class GameRuleCard_Test {
 	{
 		grCards = GameRuleCardsBLL.getCardsRules(1);
 		
-		assertTrue(grCards.size() > 0);
+		//For an ID of 1, should return 4
+		assertTrue(grCards.size() == 4);
 		
+		//Make sure this one works too
+		HashMap<String, GameRuleCardsDomainModel> grCardsMap = GameRuleCardsBLL.getRuleCardsHashSet(1);
+		assertTrue(grCardsMap.get("1").getNBROFCARDS() == 2);
 	}
 	
 }

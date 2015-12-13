@@ -13,6 +13,8 @@ import org.apache.commons.math3.util.Combinations;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
+import base.GameRuleDAL;
+import domain.GameRuleCardsDomainModel;
 import domain.GameRuleDomainModel;
 import enums.eGame;
 import enums.eRank;
@@ -47,6 +49,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import logic.GameRuleBLL;
+import logic.GameRuleCardsBLL;
 import poker.app.MainApp;
 import pokerBase.Card;
 import pokerBase.Deck;
@@ -92,11 +95,12 @@ public class PokerTableController {
 	private ImageView imgTransCardP4 = new ImageView();
 	private ImageView imgTransCardCommon = new ImageView();
 	
-	private static Rule rle = new Rule(eGame.FiveStud);
-
-	public static void setRle(Rule rle) {
-		PokerTableController.rle = rle;
-	}
+	//TODO: Delete this
+	private Rule rle = new Rule();
+//
+//	public static void setRle(Rule rle) {
+//		PokerTableController.rle = rle;
+//	}
 
 	@FXML
 	public HBox HboxCommonArea;
@@ -274,9 +278,26 @@ public class PokerTableController {
 		hs = GameRuleBLL.getRuleHashSet();		
 		GameRuleDomainModel gr = hs.get(strRuleName);
 		
+		//Set all the attributes of the Rule
+		rle.setCommunityCardsMax(gr.getCOMMUNITYCARDSMAX());
+		rle.setCommunityCardsMin(gr.getCOMMUNITYCARDSMIN());
+		rle.setPlayerCardsMax(gr.getPLAYERCARDSMAX());
+		rle.setPlayerCardsMin(gr.getPLAYERCARDSMIN());
+		rle.setPossibleHandCombinations(gr.getPOSSIBLEHANDCOMBINATIONS());
+		rle.setNumberOfJokers(gr.getNUMBEROFJOKERS());
+		rle.setPlayerNumberOfCards(gr.getPLAYERNUMBEROFCARDS());
+		rle.setMaxNumberOfPlayers(gr.getMAXNUMBEROFPLAYERS());
 		
-		
-		//tglGame = mainApp.getToggleGroup();
+		//Setting the draw order from the GameRuleCards table
+		ArrayList<GameRuleCardsDomainModel> grc = GameRuleCardsBLL.getCardsRules(gr.getRULEID());
+		//Make an integer array based on the number of cards
+		int[] iCardsToDraw = new int[grc.size()];
+		//Translate the number of cards in the table to the array
+		for (int z = 0; z < grc.size(); z++) {
+			iCardsToDraw[z] = grc.get(z).getNBROFCARDS();
+		}
+		rle.setiCardsToDraw(iCardsToDraw);
+		//By this point, Rule rle should have changed to reflect the rule in the database
 		
 		eGameState = eGameState.StartOfGame;
 		
